@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+
+ 
+<h:head>
+ 
+<h:outputScript name="jscodes.js" library="javascript" />
+</h:head>
+ 
+<h:body>
+    
+   <div id="page">
+		
+		<div id="header">
+			<ui:insert name="header" >
+			
+				<ui:include src="/pages/private/template/menu.xhtml" />
+			</ui:insert>
+			
+	    </div>
+	    <div id="body">
+		    
+			    <div id="content">
+			       <form>
+					   	<ui:insert name="conteudo" >
+					   	
+					  	</ui:insert>
+				   	</form>
+			    </div>
+		    
+		</div>     
+        <div id="footer">
+	    	<ui:insert name="footer" >
+	    		<ui:include src="/pages/private/template/rodape.xhtml" />
+	    	</ui:insert>
+		 </div>
+    </div>
+ 
+</h:body>
+</html>

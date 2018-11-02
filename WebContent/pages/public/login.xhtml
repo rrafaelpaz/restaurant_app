@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<h:outputStylesheet library="css" name="main.css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+<body>
+	<br/><br/><br/><br/><br/><br/><br/>
+	
+	
+	<h:form id="login-form">
+		<p:growl showDetail="false" life="3000" />
+		
+		<center >
+		   <p:panel header="Autenticação" style="width:350px" > 
+		   
+		        <h:panelGrid columns="2">
+					
+					<h:outputLabel value="Usuário" />
+					<h:inputText value="#{loginBean.username}" label="UserName" id="username" required="true">
+						<f:validateLength minimum="2" />
+					</h:inputText>
+					<h:outputLabel value="Senha" />
+					
+					<h:inputSecret value="#{loginBean.password}" label="Password" id="password" required="true" autocomplete="off" >
+						<f:validateLength minimum="2" />
+					</h:inputSecret>
+					<p:commandButton action="#{loginBean.doLogin}" value="Entrar" ajax="false" />
+			
+				</h:panelGrid>
+    		</p:panel>
+		</center>
+		
+	</h:form>
+</body>
+</html>

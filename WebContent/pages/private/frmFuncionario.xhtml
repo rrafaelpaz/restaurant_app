@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+ ￼ ￼ 			<title><h:outputLabel value="teste2" /></title>
+ ￼ ￼ </h:head>
+
+	<h:body>
+		
+		<ui:composition template="/pages/private/template/template.xhtml">
+
+        <ui:define name="conteudo">
+        
+		    <p:growl showDetail="true" showSummary="true" id="msgFuncionario" sticky="true" life="1" /> 
+		    <p:panel id="panelFuncionarioHeader" header="Funcionário" style="margin-bottom:10px;">
+				   
+			        <h:form id="formFuncionario">
+				      	<h:panelGrid columns="2">  
+				      	
+	  						        <h:panelGrid columns="2" columnClasses="label, value">
+					                    <h:outputText value="Nome *" />
+					                    <p:inputText value="#{funcionarioMB.funcionario.nome}" required="true" label="Nome"/>
+					 
+					                    <h:outputText value="CPF: *" />
+					                    <p:inputText value="#{funcionarioMB.funcionario.cpf}" required="true" label="CPF"/>
+					 
+					                 </h:panelGrid>
+					                  
+					                  <h:panelGrid columns="2" columnClasses="label, value">
+					                  
+					                    <p:outputLabel for="plantao" value="Plantão:" />
+									        <p:selectOneRadio id="plantao" value="#{funcionarioMB.funcionario.plantao}">
+									            <f:selectItem itemLabel="Dia" itemValue="Dia" />
+									            <f:selectItem itemLabel="Noite" itemValue="Noite" />
+									        </p:selectOneRadio>
+						 				
+					               
+					                    <h:outputText value="Função: " />
+					                    <p:selectOneMenu value="#{funcionarioMB.funcionario.funcao}" converter="funcaoConverter">
+										    <f:selectItems value="#{funcionarioMB.funcoes}" var="funcao" itemLabel="#{funcao.nome}"/>
+										</p:selectOneMenu>
+					                  </h:panelGrid>
+					          	   
+					    			
+					    			<h:inputHidden id="idFuncionario" value="#{funcionarioMB.funcionario.id}" />
+						
+						
+						</h:panelGrid> 
+							         
+					    <p:commandButton value="Salvar"  actionListener="#{funcionarioMB.salvar}" ajax="false" icon="ui-icon-disk" /> 
+							     
+						
+					 </h:form> 
+				     
+				     </p:panel>
+				     <h:form id="idDatatableFuncionario">
+				  	   	        							
+			                        <p:dataTable id="dataTableFuncionario" value="#{funcionarioMB.funcionarios}" var="funcionario" widgetVar="funcionarioTable"
+			                        			  emptyMessage="O funcionário informado não está cadastrado no sistema" 
+                 								  filteredValue="#{funcionarioMB.filteredfuncionarios}" paginator="true" rows="5">
+                 								  
+                 					    <p:column  filterBy="#{funcionario.nome}" headerText="Nome"  filterMatchMode="contains"  width="500">
+            								<h:outputText value="#{funcionario.nome}" />
+        								</p:column>
+        								
+        								<p:column  filterBy="#{funcionario.cpf}" headerText="CPF"  filterMatchMode="contains"  width="100">
+            								<h:outputText value="#{funcionario.cpf}" />
+        								</p:column>
+        								
+        								<p:column filterBy="#{funcionario.plantao}" headerText="Plantão"  filterMatchMode="contains"  width="100">
+            								<h:outputText value="#{funcionario.plantao}" />
+        								</p:column>
+        								
+        								
+        								<p:column  filterBy="#{funcionario.funcao.nome}" headerText="Funcão"  filterMatchMode="contains"  width="150">
+            								<h:outputText value="#{funcionario.funcao.nome}" />
+        								</p:column>
+                 					    
+			                            
+			                            <p:column  width="100"> 
+			                             	
+			                             	<p:confirmDialog id="confirmDialog" message="Remover registro?"  
+								                    	 header="Remover Registro" severity="alert" widgetVar="confirmation">  
+								                      
+									            <p:commandButton id="confirm" value="Sim"  oncomplete="confirmation.hide()"  
+									                        	 actionListener="#{funcionarioMB.remove(funcionario)}" ajax="false"/>  
+									            <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button" />   
+									                      
+								        	</p:confirmDialog>  
+
+											<p:commandButton icon="ui-icon-trash"  ajax="false" id="showDialogButton"  onclick="confirmation.show()" type="button" title="Remover"/>
+											<p:commandButton icon="ui-icon-pencil" ajax="false" update="dataTableFuncionario" actionListener="#{funcionarioMB.editar(funcionario)}" title="Atualizar"/>
+			        						
+                						</p:column>
+			                          		                            
+		                    		</p:dataTable>  
+						        
+						 
+					</h:form>
+	  	</ui:define>
+	  	
+	  </ui:composition>
+ ￼ ￼ 	</h:body>
+</html>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+     
+	    <ui:composition>
+	 	    <h:form>
+			    <p:menubar autoDisplay="false">
+			    
+                       <p:submenu label="Cadastros">  
+                       	   <p:menuitem value="Turno" url="/pages/private/frmTurno.jsf"/> 
+                           <p:menuitem value="Funcionário" url="/pages/private/frmFuncionario.jsf"/>
+                       	   <p:menuitem value="Função" url="/pages/private/frmFuncao.jsf"/> 
+                       	   <p:separator />  
+                           <p:menuitem value="Sair" action="#{loginBean.doLogout}" />  
+                       </p:submenu> 
+                       
+                       <p:submenu label="Escalas">  
+                           <p:menuitem value="Consulta" url="/pages/private/frmEscala.jsf"/>
+                           <p:menuitem value="Criar Escalas" url="/pages/private/frmPlantao.jsf"/> 
+                        </p:submenu>
+                        
+                        <p:submenu label="Restrições"> 
+                        	<p:menuitem value="Restrição Obrigatória" url="/pages/private/frmRestricaoObrigatoria.jsf"/>
+                        	<p:menuitem value="Preferência" url="/pages/private/frmPreferencia.jsf"/>
+                        </p:submenu>
+                        
+                        <p:submenu label="Relatórios"> 
+                        	<p:menuitem value="Escala Funcionário" url="/pages/private/frmRelEscalaFunc.jsf"/>
+                        </p:submenu>
+                   
+                       
+                       <p:submenu label="Configurações">  
+                           <p:menuitem value="Cadastro de Usuário" url="/pages/private/frmUsuario.jsf"/>
+                       	     
+                       </p:submenu>  
+                        
+                       
+                    </p:menubar> 
+                    <br/>
+             </h:form>             
+	    </ui:composition>
+	    
+    </body>
+</html>

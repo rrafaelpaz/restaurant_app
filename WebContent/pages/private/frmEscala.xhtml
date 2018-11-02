@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+ ￼ ￼ 			<title><h:outputLabel value="teste2" /></title>
+ ￼ ￼ </h:head>
+
+<h:body>
+
+	<ui:composition template="/pages/private/template/template.xhtml">
+
+		<ui:define name="conteudo">
+		
+		 <p:growl showDetail="true" showSummary="true" id="msgEscala" sticky="true" life="1" />
+			<p:panel id="panelEscalaHeader" header="Pesquisa" style="margin-bottom:10px;">
+
+				<h:form id="formPesquisaEscala">
+					<h:panelGrid columns="3">
+
+						<p:outputLabel for="dataPesquisa" value="Mês da Escala:" />
+        			    <p:calendar id="dataPesquisa" locale="pt"  pattern="dd/MM/yyyy" value="#{escalaMB.dataEscalaPesquisa}" />
+        			    <p:commandButton value="Pesquisar" actionListener="#{escalaMB.pesquisar}" ajax="false" icon="ui-icon-search" />
+        		
+        			</h:panelGrid>
+					
+				</h:form>
+
+			</p:panel>
+
+			<h:form id="idDatatableEscala">
+			
+					<p:tabView id="tabEscalaMes">
+			        	<p:tab title="" id="tab1">
+				            <h:panelGrid columns="2" cellpadding="10">
+				                
+					                <p:dataTable id="dataTableEscala1" value="#{escalaMB.escalaSemana1}" var="escala" widgetVar="escalaTable1"
+										emptyMessage="Nenhum ítem encontrado" stickyHeader="true">
+							
+							
+									<p:column  headerText="FUNCIONÁRIO"  width="100">
+										<h:outputText value="#{escala.nomeFunc}" />
+									</p:column>
+									
+									
+									<p:column  headerText="SEGUNDA"  width="50">
+										<h:outputText value="#{escala.horarioSeg}" style="background-color: \##{escala.corTurnoSeg}"/>
+									</p:column>
+									
+									<p:column  headerText="TERÇA"  width="50">
+										<h:outputText value="#{escala.horarioTer}" style="background-color: \##{escala.corTurnoTer}"/>
+									</p:column>
+									
+									<p:column  headerText="QUARTA"  width="50">
+										<h:outputText value="#{escala.horarioQua}" style="background-color: \##{escala.corTurnoQua}"/>
+									</p:column>
+									
+									<p:column  headerText="QUINTA"  width="50">
+										<h:outputText value="#{escala.horarioQui}" style="background-color: \##{escala.corTurnoQui}"/>
+									</p:column>
+									
+									<p:column  headerText="SEXTA"  width="50">
+										<h:outputText value="#{escala.horarioSex}" style="background-color: \##{escala.corTurnoSex}"/>
+									</p:column>
+									
+									<p:column  headerText="SÁBADO"  width="50">
+										<h:outputText value="#{escala.horarioSab}" style="background-color: \##{escala.corTurnoSab}"/>
+									</p:column>
+									
+									<p:column  headerText="DOMINGO"  width="50">
+										<h:outputText value="#{escala.horarioDom}" style="background-color: \##{escala.corTurnoDom}"/>
+									</p:column>
+						
+								</p:dataTable>
+				            </h:panelGrid>
+			           </p:tab>
+			        	<p:tab title="">
+				            <h:panelGrid columns="2" cellpadding="10">
+				                
+				                 <p:dataTable id="dataTableEscala2" value="#{escalaMB.escalaSemana2}" var="escala" widgetVar="escalaTable2"
+										emptyMessage="Nenhum ítem encontrado" stickyHeader="true">
+							
+								
+									<p:column  headerText="FUNCIONÁRIO"  width="100">
+										<h:outputText value="#{escala.nomeFunc}" />
+									</p:column>
+									
+									
+									<p:column  headerText="SEGUNDA"  width="50">
+										<h:outputText value="#{escala.horarioSeg}" style="background-color: \##{escala.corTurnoSeg}"/>
+									</p:column>
+									
+									<p:column  headerText="TERÇA"  width="50">
+										<h:outputText value="#{escala.horarioTer}" style="background-color: \##{escala.corTurnoTer}"/>
+									</p:column>
+									
+									<p:column  headerText="QUARTA"  width="50">
+										<h:outputText value="#{escala.horarioQua}" style="background-color: \##{escala.corTurnoQua}"/>
+									</p:column>
+									
+									<p:column  headerText="QUINTA"  width="50">
+										<h:outputText value="#{escala.horarioQui}" style="background-color: \##{escala.corTurnoQui}"/>
+									</p:column>
+									
+									<p:column  headerText="SEXTA"  width="50">
+										<h:outputText value="#{escala.horarioSex}" style="background-color: \##{escala.corTurnoSex}"/>
+									</p:column>
+									
+									<p:column  headerText="SÁBADO"  width="50">
+										<h:outputText value="#{escala.horarioSab}" style="background-color: \##{escala.corTurnoSab}"/>
+									</p:column>
+									
+									<p:column  headerText="DOMINGO"  width="50">
+										<h:outputText value="#{escala.horarioDom}" style="background-color: \##{escala.corTurnoDom}"/>
+									</p:column>
+						
+								</p:dataTable>
+				            </h:panelGrid>
+			        	</p:tab>
+			        	<p:tab title="">
+				            <h:panelGrid columns="2" cellpadding="10">
+				                
+				                 <p:dataTable id="dataTableEscala3" value="#{escalaMB.escalaSemana3}" var="escala" widgetVar="escalaTable3"
+										emptyMessage="Nenhum ítem encontrado" stickyHeader="true">
+							
+									
+									<p:column  headerText="FUNCIONÁRIO"  width="100">
+										<h:outputText value="#{escala.nomeFunc}" />
+									</p:column>
+									
+									
+									<p:column  headerText="SEGUNDA"  width="50">
+										<h:outputText value="#{escala.horarioSeg}" style="background-color: \##{escala.corTurnoSeg}"/>
+									</p:column>
+									
+									<p:column  headerText="TERÇA"  width="50">
+										<h:outputText value="#{escala.horarioTer}" style="background-color: \##{escala.corTurnoTer}"/>
+									</p:column>
+									
+									<p:column  headerText="QUARTA"  width="50">
+										<h:outputText value="#{escala.horarioQua}" style="background-color: \##{escala.corTurnoQua}"/>
+									</p:column>
+									
+									<p:column  headerText="QUINTA"  width="50">
+										<h:outputText value="#{escala.horarioQui}" style="background-color: \##{escala.corTurnoQui}"/>
+									</p:column>
+									
+									<p:column  headerText="SEXTA"  width="50">
+										<h:outputText value="#{escala.horarioSex}" style="background-color: \##{escala.corTurnoSex}"/>
+									</p:column>
+									
+									<p:column  headerText="SÁBADO"  width="50">
+										<h:outputText value="#{escala.horarioSab}" style="background-color: \##{escala.corTurnoSab}"/>
+									</p:column>
+									
+									<p:column  headerText="DOMINGO"  width="50">
+										<h:outputText value="#{escala.horarioDom}" style="background-color: \##{escala.corTurnoDom}"/>
+									</p:column>
+						
+								</p:dataTable>
+				            </h:panelGrid>
+			        	</p:tab>
+			        	<p:tab title="">
+				            <h:panelGrid columns="2" cellpadding="10">
+				                
+				                 <p:dataTable id="dataTableEscala4" value="#{escalaMB.escalaSemana4}" var="escala" widgetVar="escalaTable4"
+										emptyMessage="Nenhum ítem encontrado" stickyHeader="true">
+							
+									
+									<p:column  headerText="FUNCIONÁRIO"  width="100">
+										<h:outputText value="#{escala.nomeFunc}" />
+									</p:column>
+									
+									
+									<p:column  headerText="SEGUNDA"  width="50">
+										<h:outputText value="#{escala.horarioSeg}" style="background-color: \##{escala.corTurnoSeg}"/>
+									</p:column>
+									
+									<p:column  headerText="TERÇA"  width="50">
+										<h:outputText value="#{escala.horarioTer}" style="background-color: \##{escala.corTurnoTer}"/>
+									</p:column>
+									
+									<p:column  headerText="QUARTA"  width="50">
+										<h:outputText value="#{escala.horarioQua}" style="background-color: \##{escala.corTurnoQua}"/>
+									</p:column>
+									
+									<p:column  headerText="QUINTA"  width="50">
+										<h:outputText value="#{escala.horarioQui}" style="background-color: \##{escala.corTurnoQui}"/>
+									</p:column>
+									
+									<p:column  headerText="SEXTA"  width="50">
+										<h:outputText value="#{escala.horarioSex}" style="background-color: \##{escala.corTurnoSex}"/>
+									</p:column>
+									
+									<p:column  headerText="SÁBADO"  width="50">
+										<h:outputText value="#{escala.horarioSab}" style="background-color: \##{escala.corTurnoSab}"/>
+									</p:column>
+									
+									<p:column  headerText="DOMINGO"  width="50">
+										<h:outputText value="#{escala.horarioDom}" style="background-color: \##{escala.corTurnoDom}"/>
+									</p:column>
+						
+								</p:dataTable>
+				            </h:panelGrid>
+			        	</p:tab>
+			        	<p:tab title="">
+				            <h:panelGrid columns="2" cellpadding="10">
+				                
+				                 <p:dataTable id="dataTableEscala5" value="#{escalaMB.escalaSemana5}" var="escala" widgetVar="escalaTable5"
+										emptyMessage="Nenhum ítem encontrado" stickyHeader="true">
+
+		
+									<p:column  headerText="FUNCIONÁRIO"  width="100">
+										<h:outputText value="#{escala.nomeFunc}" />
+									</p:column>
+									
+									
+									<p:column  headerText="SEGUNDA"  width="50">
+										<h:outputText value="#{escala.horarioSeg}" style="background-color: \##{escala.corTurnoSeg}"/>
+									</p:column>
+									
+									<p:column  headerText="TERÇA"  width="50">
+										<h:outputText value="#{escala.horarioTer}" style="background-color: \##{escala.corTurnoTer}"/>
+									</p:column>
+									
+									<p:column  headerText="QUARTA"  width="50">
+										<h:outputText value="#{escala.horarioQua}" style="background-color: \##{escala.corTurnoQua}"/>
+									</p:column>
+									
+									<p:column  headerText="QUINTA"  width="50">
+										<h:outputText value="#{escala.horarioQui}" style="background-color: \##{escala.corTurnoQui}"/>
+									</p:column>
+									
+									<p:column  headerText="SEXTA"  width="50">
+										<h:outputText value="#{escala.horarioSex}" style="background-color: \##{escala.corTurnoSex}"/>
+									</p:column>
+									
+									<p:column  headerText="SÁBADO"  width="50">
+										<h:outputText value="#{escala.horarioSab}" style="background-color: \##{escala.corTurnoSab}"/>
+									</p:column>
+									
+									<p:column  headerText="DOMINGO"  width="50">
+										<h:outputText value="#{escala.horarioDom}" style="background-color: \##{escala.corTurnoDom}"/>
+									</p:column>
+						
+								</p:dataTable>
+				            </h:panelGrid>
+			        	</p:tab>
+		          </p:tabView>
+
+					
+			
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+ ￼ ￼ 	</h:body>
+</html>

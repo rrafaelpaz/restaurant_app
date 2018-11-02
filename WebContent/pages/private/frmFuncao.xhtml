@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+ ￼ ￼ 			<title><h:outputLabel value="teste2" /></title>
+ ￼ ￼ </h:head>
+
+<h:body>
+
+	<ui:composition template="/pages/private/template/template.xhtml">
+
+		<ui:define name="conteudo">
+
+			<p:growl showDetail="true" showSummary="true" id="msgFuncao"
+				sticky="true" life="1" />
+			<p:panel id="panelFuncaoHeader" header="Função"
+				style="margin-bottom:10px;">
+
+				<h:form id="formFuncao">
+					<h:panelGrid columns="3">
+
+						<h:outputLabel for="nome" value="Nome: *" />
+						<p:inputText id="nome" value="#{funcaoMB.funcao.nome}"
+							required="true" label="Nome de Usuário">
+							<f:validateLength minimum="2" />
+						</p:inputText>
+						<p:message for="nome" />
+
+
+						<h:inputHidden id="idFuncao" value="#{funcaoMB.funcao.id}" />
+
+
+					</h:panelGrid>
+
+					<p:commandButton value="Salvar" actionListener="#{funcaoMB.salvar}"
+						ajax="false" icon="ui-icon-disk" />
+
+
+				</h:form>
+
+			</p:panel>
+			<h:form id="idDatatableFuncao">
+
+				<p:dataTable id="dataTableFuncao" value="#{funcaoMB.funcoes}"
+						var="funcao" widgetVar="funcaoTable"
+						emptyMessage="Nenhum ítem encontrado"
+						filteredValue="#{funcaoMB.filteredfuncoes}" paginator="true"
+						rows="5">
+
+						<p:column id="idDtNomeFuncao" filterBy="#{funcao.nome}"
+							headerText="Nome" filterMatchMode="contains" width="500">
+							<h:outputText value="#{funcao.nome}" />
+						</p:column>
+
+						<p:column id="idDtBotaoFuncao" width="100">
+
+							<p:confirmDialog id="confirmDialog" message="Remover registro?"
+								header="Remover Registro" severity="alert"
+								widgetVar="confirmation">
+
+								<p:commandButton id="confirm" value="Sim"
+									oncomplete="confirmation.hide()"
+									actionListener="#{funcaoMB.remove(funcao)}" ajax="false" />
+								<p:commandButton id="decline" value="Não"
+									onclick="confirmation.hide()" type="button" />
+
+							</p:confirmDialog>
+
+							<p:commandButton icon="ui-icon-trash" ajax="false"
+								id="showDialogButton" onclick="confirmation.show()"
+								type="button" title="Remover" />
+							<p:commandButton icon="ui-icon-pencil" ajax="false"
+								update="dataTableFuncao"
+								actionListener="#{funcaoMB.editar(funcao)}" title="Atualizar" />
+
+						</p:column>
+
+					</p:dataTable>
+			
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+ ￼ ￼ 	</h:body>
+</html>

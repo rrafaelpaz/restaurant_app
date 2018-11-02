@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+
+<p:dialog id="idDialogPlantao" widgetVar="dlg_plantao"
+	header="Cadastro do Plantão" showEffect="clip" hideEffect="clip"
+	width="750">
+
+	<h:form id="formCadPlantao">
+
+		<p:growl showDetail="true" showSummary="true" id="msgCadPlantao" sticky="true" life="1" />
+
+		<h:panelGrid columns="2">
+
+			<h:panelGrid columns="2">
+
+
+				<p:outputLabel for="turno" value="Turno:" />
+				
+				<p:selectOneMenu id="turno" value="#{plantaoMB.plantao.turno}" converter="turnoConverter" panelStyle="width:650px" effect="fade"
+								var="t" style="width:160px" filter="true" filterMatchMode="contains">
+					
+					<f:selectItems value="#{plantaoMB.turnos}" var="turno" itemLabel="#{turno.codigo}" itemValue="#{turno}" />
+					
+					
+
+					<p:column width="50">
+						<h:outputText value="#{t.codigo}" />
+					</p:column>
+
+					<p:column width="50">
+						<h:outputText value="#{t.plantao}" />
+					</p:column>
+
+					<p:column width="50">
+						<h:outputText value="#{t.abertura}">
+							<f:convertDateTime pattern="HH:mm" />
+						</h:outputText>
+					</p:column>
+
+					<p:column width="50">
+						<h:outputText value="#{t.fechamento}">
+							<f:convertDateTime pattern="HH:mm" />
+						</h:outputText>
+					</p:column>
+
+					<p:column width="50">
+						<h:outputText value="#{t.intervaloInicio}">
+							<f:convertDateTime pattern="HH:mm" />
+						</h:outputText>
+					</p:column>
+
+					<p:column width="50">
+						<h:outputText value="#{t.intervalorFim}">
+							<f:convertDateTime pattern="HH:mm" />
+						</h:outputText>
+					</p:column>
+
+
+					<p:column width="20">
+						<h:outputText value="#{t.cor}" style="background-color: \##{t.cor}" />
+					</p:column>
+
+				</p:selectOneMenu>
+
+				<h:outputText value="Demanda:" />
+				<p:inputText value="#{plantaoMB.plantao.demanda}" label="Demanda" />
+
+				<h:outputText value="Data:" />
+				<p:calendar locale="pt" pattern="dd/MM/yyyy" id="dataTurno" value="#{plantaoMB.dataTurno}" label="Data" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="2" columnClasses="label, value">
+
+				<p:outputLabel for="replicar" value="Replicar:" />
+				<p:selectOneRadio id="replicar" value="#{plantaoMB.replicarCheckbox}">
+					<f:selectItem itemLabel="Mês" itemValue="mês" />
+					<f:selectItem itemLabel="Semana" itemValue="semana" />
+				</p:selectOneRadio>
+
+				<h:outputText value="Dias:" />
+				<p:selectManyCheckbox id="grid" value="#{plantaoMB.selectedDias}" layout="grid" columns="4">
+					<f:selectItems value="#{plantaoMB.dias}" var="dia" itemLabel="#{dia}" itemValue="#{dia}" />
+				</p:selectManyCheckbox>
+
+			</h:panelGrid>
+
+		
+		</h:panelGrid>
+
+		<p:commandButton value="Salvar" update="msgCadPlantao,formCadPlantao" actionListener="#{plantaoMB.salvar}"
+							oncomplete="PF('myschedule').update();PF('dlg_plantao').hide();" />
+		<br />
+		<br />
+	</h:form>
+
+	<ui:include src="/pages/private/include/includeTurnos.xhtml" />
+
+</p:dialog>
+
+</html>

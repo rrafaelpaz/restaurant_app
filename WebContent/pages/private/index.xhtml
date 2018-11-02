@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+ ￼ ￼ 	<title>teste</title>
+	<style type="text/css">
+.value {
+	width: 1000px;
+}
+</style>
+
+	<h:outputScript name="jscodes.js" library="javascript" />
+ ￼</h:head>
+
+<h:body>
+
+	<h:form id="formTurno">
+		<p:growl id="messages" showDetail="true" />
+		<h:panelGrid columns="3">
+
+			<h:panelGrid columns="1" columnClasses="label, value">
+				<h:panelGrid columnClasses="value">
+					<p:schedule locale="pt" timeZone="America/Sao_Paulo"
+								axisFormat="H:mm" timeFormat="H:mm"
+								columnFormat="month:'ddd',week:'dddd dd/MM',day:'dddd dd/MM'"
+								id="schedule" value="#{testeMB.eventModel}" widgetVar="myschedule">
+
+						<p:ajax event="dateSelect" listener="#{testeMB.onDateSelect}" update=":idDialogTurno,:formDataTableTurno:dataTableTurno" oncomplete="PF('dlg').show();" />
+						<p:ajax event="eventSelect" listener="#{testeMB.onEventSelect}" update=":idDialogTurno,:formDataTableTurno:dataTableTurno" oncomplete="PF('dlg').show();" />
+						
+					</p:schedule>
+
+				</h:panelGrid>
+
+			</h:panelGrid>
+
+		</h:panelGrid>
+	</h:form>
+	
+	<ui:include src="/pages/private/include/includeCadTurno.xhtml" />
+
+
+
+</h:body>
+</html>

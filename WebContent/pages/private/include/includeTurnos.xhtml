@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+     
+ 
+	 <p:dialog id="idDialogTurnos" widgetVar="dlg_turno" header="Turnos Ativos" showEffect="clip" hideEffect="clip" width="700">
+		
+		<h:form id="formDataTableTurnos">
+
+			
+				<p:dataTable id="dataTableTurnos" var="turno" value="#{plantaoMB.turnosAtivos}" selectionMode="single"
+				rowKey="#{turno.id}"
+				 emptyMessage="Nenhum ítem encontrado">
+
+					<p:ajax event="rowSelect" listener="#{plantaoMB.selecionarTurno}" update=":formCadPlantao"  oncomplete="PF('dlg_turno').hide();" />
+        
+					    <p:column headerText="Código" width="50">
+							<h:outputText value="#{turno.codigo}"/>
+				        </p:column>
+				        
+				        <p:column headerText="Plantão" width="50">
+							<h:outputText value="#{turno.plantao}"/>
+				         </p:column>
+						
+						<p:column headerText="Abertura" width="50">
+							<h:outputText value="#{turno.abertura}">
+				                <f:convertDateTime pattern="HH:mm" />
+				            </h:outputText>
+						</p:column>
+						
+						<p:column  headerText="Fechamento" width="50">
+							<h:outputText value="#{turno.fechamento}">
+				                <f:convertDateTime pattern="HH:mm" />
+				            </h:outputText>
+						</p:column>
+						
+						<p:column headerText="Intervalo Início" width="50">
+							<h:outputText value="#{turno.intervaloInicio}">
+				                <f:convertDateTime pattern="HH:mm" />
+				            </h:outputText>
+						</p:column>
+						
+						<p:column  headerText="Intervalo Fim" width="50">
+							<h:outputText value="#{turno.intervalorFim}">
+				                <f:convertDateTime pattern="HH:mm" />
+				            </h:outputText>
+						</p:column>
+						
+					    
+				        <p:column headerText="Cor" width="20">
+							<h:outputText value="#{turno.cor}" style="background-color: \##{turno.cor}"/>
+				        </p:column>
+					
+					
+				</p:dataTable>
+			
+		</h:form>
+	</p:dialog>
+
+</html>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+     
+ 
+	 <p:dialog id="idDialogPlantao" widgetVar="dlg_plantao" header="Plantão" showEffect="clip" hideEffect="clip" width="750">
+
+		<h:form id="formCadPlantao">
+
+			<p:growl showDetail="true" showSummary="true" id="msgCadPlantao" sticky="true" life="1" />
+
+			<h:panelGrid columns="2">
+
+				<h:panelGrid columns="2" columnClasses="label, value">
+				   
+				   
+					<h:outputText value="Cód.Turno:" />
+					<p:inputText value="#{plantaoMB.plantao.turno.codigo}" update=":idDialogTurnos,:formDataTableTurnos:dataTableTurnos" onmouseover="PF('dlg_turno').show();" />
+				  
+					
+					<h:outputText value="Demanda:" />
+					<p:inputText value="#{plantaoMB.plantao.demanda}" label="Demanda" />
+					
+					<h:outputText value="Data:" />
+					<p:calendar locale="pt" pattern="dd/MM/yyyy" id="dataTurno" value="#{plantaoMB.dataTurno}" label="Data" />
+					
+									
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="2" columnClasses="label, value">
+
+					<p:outputLabel for="replicar" value="Replicar:" />
+			        <p:selectOneRadio id="replicar" value="#{plantaoMB.replicarCheckbox}">
+			            <f:selectItem itemLabel="Mês" itemValue="mês" />
+			            <f:selectItem itemLabel="Semana" itemValue="semana" />
+			        </p:selectOneRadio>
+				
+					<h:outputText value="Dias:" />
+					<p:selectManyCheckbox id="grid" value="#{plantaoMB.selectedDias}" layout="grid" columns="4">
+						<f:selectItems value="#{plantaoMB.dias}" var="dia" itemLabel="#{dia}" itemValue="#{dia}" />
+					</p:selectManyCheckbox>
+
+				</h:panelGrid>
+  				
+  				<h:inputHidden id="idTurno" value="#{plantaoMB.turno.id}" />
+					
+				<h:inputHidden id="idPlantao" value="#{plantaoMB.plantao.id}" />
+
+			</h:panelGrid>
+
+			<p:commandButton value="Salvar" update="msgCadPlantao,formCadPlantao,:formDataTablePlantao:dataTablePlantao" actionListener="#{plantaoMB.salvar}" oncomplete="PF('myschedule').update();PF('dlg_plantao').hide();" />
+			<br/>
+			<br/>
+		</h:form>
+
+		<h:form id="formDataTablePlantao">
+			
+				<p:dataTable id="dataTablePlantao" var="plantao" value="#{plantaoMB.plantoes}" emptyMessage="Nenhum ítem encontrado" paginator="true" rows="5">
+
+					<p:column headerText="Cód. Turno" width="15">
+						<h:outputText value="#{plantao.turno.codigo}" />
+					</p:column>
+					
+					<p:column headerText="Demanda" width="15">
+						<h:outputText value="#{plantao.demanda}" />
+					</p:column>
+					
+					<p:column  headerText="Data" width="15">
+						<h:outputText value="#{plantao.dataTableDate}">
+				            <f:convertDateTime pattern="dd/MM/yyyy" />
+				         </h:outputText>
+					</p:column>
+					
+					<p:column  headerText="Dia Semana" width="15">
+						<h:outputText value="#{plantao.diaSemana}"/>
+				     </p:column>
+						
+					
+
+					<p:column id="idDtBotaoUnidade" width="20">
+
+						<p:commandButton icon="ui-icon-pencil" update=":formCadPlantao" actionListener="#{plantaoMB.alterarPlantao}" title="Atualizar" />
+
+					</p:column>
+
+				</p:dataTable>
+			
+		</h:form>
+		
+		<ui:include src="/pages/private/include/includeTurnos.xhtml" />
+		
+	</p:dialog>
+
+</html>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+ ￼ ￼ 			<title><h:outputLabel value="teste2" /></title>
+ ￼ ￼ </h:head>
+
+<h:body>
+
+	<ui:composition template="/pages/private/template/template.xhtml">
+
+		<ui:define name="conteudo">
+
+			<p:growl showDetail="true" showSummary="true" id="msgPreferencia" sticky="true" life="1" />
+			<p:panel id="panelPreferenciaHeader" header="Preferência" style="margin-bottom:10px;">
+
+				<h:form id="formPreferencia">
+				
+				<h:panelGrid columns="3"> 
+				    
+				    	<h:panelGrid columns="2">
+	
+							   <h:outputText value="Funcionário: " />
+						       
+						       <p:selectOneMenu id="funcionario" value="#{preferenciaMB.funcionario}">
+									<f:selectItem itemValue="" itemLabel="Selecione..." />
+									<f:selectItems value="#{preferenciaMB.funcionarioItens}" />
+								</p:selectOneMenu>
+								
+									
+								<h:outputText value="Data:" />
+								<p:calendar locale="pt" pattern="dd/MM/yyyy" value="#{preferenciaMB.dataPreferencia}" label="Data" />
+						
+									<p:outputLabel for="inicio" value="Início:" />
+			       			    <p:calendar id="inicio" locale="pt" value="#{preferenciaMB.preferencia.inicio}" pattern="HH:mm" timeOnly="true"  />
+								 
+								<p:outputLabel for="final" value="Fim:" />
+			       				<p:calendar id="final" locale="pt" value="#{preferenciaMB.preferencia.fim}" pattern="HH:mm" timeOnly="true"  />
+						
+							
+						
+						</h:panelGrid>
+						
+						<h:panelGrid columns="3">
+	
+						  	
+    					 		<p:outputLabel for="penalidade" value="Penalidade:" />
+						        <p:selectOneMenu id="penalidade" value="#{preferenciaMB.penalidade}">
+						            <f:selectItem itemLabel="Selecione..." itemValue="" />
+						            <f:selectItem itemLabel="1" itemValue="1" />
+						            <f:selectItem itemLabel="2" itemValue="2" />
+						            <f:selectItem itemLabel="3" itemValue="3" />
+						            <f:selectItem itemLabel="4" itemValue="4" />
+						            <f:selectItem itemLabel="5" itemValue="5" />
+						        </p:selectOneMenu>
+						
+							<h:inputHidden id="idPreferencia" value="#{funcaoMB.funcao.id}" />
+							
+						    <h:outputText value="Descrição:" />
+							    
+						 	<p:inputTextarea rows="4" cols="30" value="#{preferenciaMB.preferencia.descricao}" counter="display" maxlength="100" counterTemplate="{0}" />
+    					 	<h:outputText id="display" />
+    					
+						</h:panelGrid>
+						
+						<h:panelGrid columns="2">
+						
+									
+						</h:panelGrid>
+					
+					</h:panelGrid> 
+
+					<p:commandButton value="Salvar" actionListener="#{preferenciaMB.salvar}"
+						ajax="false" icon="ui-icon-disk" />
+
+
+				</h:form>
+
+			</p:panel>
+			<h:form id="idDatatablePreferencia">
+
+				<p:dataTable id="dataTablePreferencia" value="#{preferenciaMB.preferencias}" var="preferencia" widgetVar="preferenciaTable"
+						emptyMessage="Nenhum ítem encontrado" filteredValue="#{funcaoMB.filteredfuncoes}" paginator="true" rows="5">
+
+						<p:column  filterBy="#{preferencia.funcionario.nome}" headerText="Funcionário" filterMatchMode="contains" width="100">
+							<h:outputText value="#{preferencia.funcionario.nome}" />
+						</p:column>
+						
+					    <p:column filterBy="#{preferencia.dataDataTable}" headerText="Data" filterMatchMode="contains" width="50">
+						   <h:outputText value="#{preferencia.dataDataTable}">
+				                <f:convertDateTime pattern="dd/MM/yyyy" />
+				            </h:outputText>
+						</p:column>
+						
+						<p:column filterBy="#{preferencia.inicio}" headerText="Início" filterMatchMode="contains" width="50">
+						   <h:outputText value="#{preferencia.inicio}">
+				                <f:convertDateTime pattern="HH:mm" />
+				            </h:outputText>
+						</p:column>
+						
+						<p:column filterBy="#{preferencia.fim}" headerText="Fim" filterMatchMode="contains" width="50">
+						   <h:outputText value="#{preferencia.fim}">
+				                <f:convertDateTime pattern="HH:mm" />
+				            </h:outputText>
+						</p:column>
+					
+					   <p:column headerText="Penalidade" width="20">
+						   <h:outputText value="#{preferencia.penalidade}"/>
+				        </p:column>
+						
+
+						<p:column  width="10">
+							<p:commandButton icon="ui-icon-pencil" ajax="false"
+								update="dataTablePreferencia" actionListener="#{funcaoMB.editar(preferencia)}" title="Atualizar" />
+						</p:column>
+
+					</p:dataTable>
+			
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+ ￼ ￼ 	</h:body>
+</html>

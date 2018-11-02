@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+ ￼ ￼ 		<title><h:outputLabel value="teste2" /></title>
+ 
+ ￼ ￼ </h:head>
+
+	<h:body>
+		<ui:composition template="/pages/private/template/template.xhtml">
+	
+			<ui:define name="conteudo">
+			
+				<style type="text/css">
+				.css_schedule {
+					width: 1000px;
+				}
+				
+				</style>
+
+				<h:outputScript name="jscodes.js" library="javascript" />
+			
+			    <h:form id="formTurno">
+					<p:growl id="messages" showDetail="true"/>
+					<center >
+						<h:panelGrid columns="1">
+								<h:panelGrid columns="1" columnClasses="label, value">
+									 <h:panelGrid columns="2" columnClasses="label, value">
+								                   
+									 		<p:commandButton value="Gerar Escala" update="messages"  actionListener="#{plantaoMB.gerarEscala}" oncomplete="PF('myschedule').update();" />
+											<p:commandButton value="Criar Plantão" update="messages"   onclick="PF('dlg_plantao').show();"  />
+										
+								      </h:panelGrid>
+						
+										<h:panelGrid columns="2" columnClasses="label, value">
+										
+											<h:panelGrid columnClasses="css_schedule">
+												<p:schedule locale="pt" timeZone="America/Sao_Paulo"
+															axisFormat="H:mm" timeFormat="H:mm"
+															columnFormat="month:'ddd',week:'dddd dd/MM',day:'dddd dd/MM'"
+															id="schedule" value="#{plantaoMB.lazyEventModel}" widgetVar="myschedule">
+							
+													<p:ajax event="dateSelect" listener="#{plantaoMB.onDateSelect}" update=":idDialogPesqPlantao,:formDataTablePlantao:dataTablePlantao" oncomplete="PF('dlg_pesq_plantao').show();" />
+													
+													<p:ajax event="eventSelect" listener="#{plantaoMB.onEventSelect}" update=":idDialogFuncionariosTurno,:formDataTableFuncionariosTurno:dataTableFuncionariosTurno" 
+																																							oncomplete="PF('dlg_funcionarios_turno').show();" />
+												</p:schedule>
+							
+											</h:panelGrid>
+									   </h:panelGrid>
+								</h:panelGrid>
+						</h:panelGrid>
+					</center>
+				 </h:form>
+				
+				<ui:include src="/pages/private/include/includeCadPlantao.xhtml" />
+				<ui:include src="/pages/private/include/includePesqPlantao.xhtml" />
+				<ui:include src="/pages/private/include/includeFuncionariosTurno.xhtml" />
+			
+			</ui:define>
+	
+		</ui:composition>
+ ￼ ￼ 	</h:body>
+</html>

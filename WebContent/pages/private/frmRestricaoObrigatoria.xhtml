@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+ ￼ ￼ 			<title><h:outputLabel value="teste2" /></title>
+ ￼ ￼ </h:head>
+
+<h:body>
+
+	<ui:composition template="/pages/private/template/template.xhtml">
+
+		<ui:define name="conteudo">
+
+			<p:growl showDetail="true" showSummary="true" id="msgRestricaoObrigatoria" sticky="true" life="1" />
+			
+			<p:panel id="panelRestricaoObrigatoriaHeader"  header="Restrição Obrigatória" style="margin-bottom:10px;">
+
+				<h:form id="formRestricaoObrigatoria">
+					
+					 <h:panelGrid columns="2"> 
+						 
+						  <h:panelGrid columns="2" columnClasses="label, value">
+						  
+						    <h:outputText value="Funcionário: " />
+					        <p:selectOneMenu id="funcionario" value="#{restricaoObrigatoriaMB.funcionario}">
+								<f:selectItem itemValue="" itemLabel="Selecione..." />
+							    <f:selectItems value="#{restricaoObrigatoriaMB.funcionarioItens}" />
+						    </p:selectOneMenu>
+						                   
+							<p:outputLabel for="inicio" value="Início:" />
+		       			    <p:calendar id="inicio" locale="pt" value="#{restricaoObrigatoriaMB.restricaoObrigatoria.inicio}" pattern="HH:mm" timeOnly="true"  />
+							 
+							<p:outputLabel for="final" value="Fim:" />
+		       				<p:calendar id="final" locale="pt" value="#{restricaoObrigatoriaMB.restricaoObrigatoria.fim}" pattern="HH:mm" timeOnly="true"  />
+						                    
+						 </h:panelGrid>
+						    					
+						<h:panelGrid columns="2" columnClasses="label, value">
+						
+							<h:outputText value="Dias:" />
+							<p:selectManyCheckbox id="grid" value="#{restricaoObrigatoriaMB.selectedDias}" layout="grid" columns="4">
+								<f:selectItems value="#{restricaoObrigatoriaMB.dias}" var="dia" itemLabel="#{dia}" itemValue="#{dia}" />
+							</p:selectManyCheckbox>
+	
+						</h:panelGrid>
+					
+					</h:panelGrid>
+
+				    <h:inputHidden id="idRestricaoObrigatoria" value="#{restricaoObrigatoriaMB.restricaoObrigatoria.id}" />
+
+					<p:commandButton value="Salvar" update=":panelRestricaoObrigatoriaHeader,:msgRestricaoObrigatoria,:idDatatableRestricaoObrigatoria" actionListener="#{restricaoObrigatoriaMB.salvar}"  icon="ui-icon-disk" />
+
+
+				</h:form>
+
+			</p:panel>
+			<h:form id="idDatatableRestricaoObrigatoria">
+
+				<p:dataTable id="dataTableRestricaoObrigatoria" value="#{restricaoObrigatoriaMB.restricaoObrigatorias}" var="restricaoObrigatoria" widgetVar="restricaoObrigatoriaTable"
+						emptyMessage="Nenhum ítem encontrado" filteredValue="#{restricaoObrigatoriaMB.filteredrestricaoObrigatorias}" paginator="true" rows="5">
+						
+						<p:column filterBy="#{restricaoObrigatoria.funcionario.nome}" headerText="Funcionário" filterMatchMode="contains" width="100">
+							<h:outputText value="#{restricaoObrigatoria.funcionario.nome}" />
+						</p:column>
+						
+						<p:column filterBy="#{restricaoObrigatoria.diaSemana}" headerText="Dia Semana" filterMatchMode="contains" width="100">
+							<h:outputText value="#{restricaoObrigatoria.diaSemana}" />
+						</p:column>
+						
+						
+						<p:column filterBy="#{restricaoObrigatoria.inicio}" headerText="Início" filterMatchMode="contains" width="100">
+						   <h:outputText value="#{restricaoObrigatoria.inicio}">
+				                <f:convertDateTime pattern="HH:mm" />
+				            </h:outputText>
+						
+						</p:column>
+						
+						<p:column filterBy="#{restricaoObrigatoria.fim}" headerText="Fim" filterMatchMode="contains" width="100">
+							<h:outputText value="#{restricaoObrigatoria.fim}">
+								<f:convertDateTime pattern="HH:mm" />
+							</h:outputText>
+						</p:column>
+						
+
+						<p:column  width="100">
+
+							<p:confirmDialog id="confirmDialog" message="Remover registro?"
+								header="Remover Registro" severity="alert"
+								widgetVar="confirmation">
+
+								<p:commandButton id="confirm" value="Sim"
+									oncomplete="confirmation.hide()"
+									actionListener="#{restricaoObrigatoriaMB.remove(restricaoObrigatoria)}" ajax="false" />
+								<p:commandButton id="decline" value="Não"
+									onclick="confirmation.hide()" type="button" />
+
+							</p:confirmDialog>
+
+							<p:commandButton icon="ui-icon-trash" ajax="false"
+								id="showDialogButton" onclick="confirmation.show()"
+								type="button" title="Remover" />
+							<p:commandButton icon="ui-icon-pencil" ajax="false"
+								update="dataTableRestricaoObrigatoria"
+								actionListener="#{restricaoObrigatoriaMB.editar(restricaoObrigatoria)}" title="Atualizar" />
+
+						</p:column>
+
+					</p:dataTable>
+			
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+ ￼ ￼ 	</h:body>
+</html>

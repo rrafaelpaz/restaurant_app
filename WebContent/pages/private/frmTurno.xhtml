@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+ ￼ ￼ 	<title><h:outputLabel value="teste2" /></title>
+ ￼ ￼ </h:head>
+
+<h:body>
+
+	<ui:composition template="/pages/private/template/template.xhtml">
+
+		<ui:define name="conteudo">
+
+			<p:growl showDetail="true" showSummary="true" id="msgFuncao" sticky="true" life="1" />
+			<p:panel id="panelTurnoHeader" header="Turno" style="margin-bottom:10px;">
+
+				<h:form id="formTurno">
+				     	<h:panelGrid columns="4"> 
+				     	
+				     	 			<h:panelGrid columns="2" columnClasses="label, value">
+					                   
+						 				 <h:outputText value="Código:" />
+					                     <p:inputText value="#{turnoMB.turno.codigo}" required="true" label="Nome"/>
+					 						
+	        							  <p:outputLabel for="plantao" value="Plantão:" />
+									        <p:selectOneRadio id="plantao" value="#{turnoMB.turno.plantao}">
+									            <f:selectItem itemLabel="Dia" itemValue="Dia" />
+									            <f:selectItem itemLabel="Noite" itemValue="Noite" />
+									        </p:selectOneRadio>
+						 				
+					                  </h:panelGrid> 
+				     				  	
+	  						        <h:panelGrid columns="2" columnClasses="label, value">
+					                   
+						 					<p:outputLabel for="abertura" value="Abertura:" />
+	       									<p:calendar id="abertura" locale="pt" value="#{turnoMB.turno.abertura}" pattern="HH:mm" timeOnly="true"  />
+						 
+						 					<p:outputLabel for="fechamento" value="Fechamento:" />
+	       									<p:calendar id="fechamento" locale="pt" value="#{turnoMB.turno.fechamento}" pattern="HH:mm" timeOnly="true"  />
+					                    
+					                  </h:panelGrid>
+					                    
+					                  <h:panelGrid columns="2" columnClasses="label, value">
+					                   
+						 					<p:outputLabel for="intervaloInicio" value="Intervalo Início:" />
+	       									<p:calendar id="intervaloInicio" locale="pt" value="#{turnoMB.turno.intervaloInicio}" pattern="HH:mm" timeOnly="true"  />
+						 
+						 					<p:outputLabel for="intervaloFim" value="Intervalo Fim:" />
+	       									<p:calendar id="intervaloFim" locale="pt" value="#{turnoMB.turno.intervalorFim}" pattern="HH:mm" timeOnly="true"  />
+					                    
+					                  </h:panelGrid>
+					                                     
+					                  <h:panelGrid columns="2" columnClasses="label, value">
+					                   
+						 					<h:outputText value="Cor: " />
+	        								<p:colorPicker value="#{turnoMB.turno.cor}" /> 
+	        								
+	        								<h:outputText value="Ativo: " />
+	        							  	<p:selectBooleanCheckbox value="#{turnoMB.turno.isAtivo}" />
+	        						    
+					                  </h:panelGrid>
+					          	   
+					     <h:inputHidden id="idTurno" value="#{turnoMB.turno.id}" />
+						
+						</h:panelGrid> 
+							         
+					    <p:commandButton value="Salvar"  actionListener="#{turnoMB.salvar}" ajax="false" icon="ui-icon-disk" /> 
+		
+				</h:form>
+
+			</p:panel>
+			
+			<h:form id="idDatatableTurno">
+
+					<p:dataTable id="dataTableTurno" value="#{turnoMB.turnos}" var="turno" widgetVar="turnoTable"
+						emptyMessage="Nenhum ítem encontrado"
+						filteredValue="#{turnoMB.filteredturnos}" paginator="true" rows="5">
+						
+						<p:column headerText="Código" width="50">
+							<h:outputText value="#{turno.codigo}"/>
+				        </p:column>
+				        
+				        <p:column headerText="Plantão" width="50">
+							<h:outputText value="#{turno.plantao}"/>
+				        </p:column>
+						
+						<p:column headerText="Abertura" width="50">
+							<h:outputText value="#{turno.abertura}">
+				                <f:convertDateTime pattern="HH:mm" />
+				            </h:outputText>
+						</p:column>
+						
+						<p:column  headerText="Fechamento" width="50">
+							<h:outputText value="#{turno.fechamento}">
+				                <f:convertDateTime pattern="HH:mm" />
+				            </h:outputText>
+						</p:column>
+						
+						<p:column headerText="Intervalo Início" width="50">
+							<h:outputText value="#{turno.intervaloInicio}">
+				                <f:convertDateTime pattern="HH:mm" />
+				            </h:outputText>
+						</p:column>
+						
+						<p:column  headerText="Intervalo Fim" width="50">
+							<h:outputText value="#{turno.intervalorFim}">
+				                <f:convertDateTime pattern="HH:mm" />
+				            </h:outputText>
+						</p:column>
+						
+					    
+				        <p:column headerText="Cor" width="20">
+							<h:outputText value="#{turno.cor}" style="background-color: \##{turno.cor}"/>
+				        </p:column>
+				        
+				        <p:column headerText="Ativo" width="20">
+							<h:outputText value="#{turno.estaAtivo}"/>
+				        </p:column>
+						
+						
+
+						<p:column id="idDtBotaoTurno" width="50">
+
+							<p:confirmDialog id="confirmDialog" message="Remover registro?" header="Remover Registro" severity="alert" widgetVar="confirmation">
+
+								<p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" actionListener="#{turnoMB.remove(turno)}" ajax="false" />
+								<p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button" />
+
+							</p:confirmDialog>
+
+							<p:commandButton icon="ui-icon-trash" ajax="false"  id="showDialogButton" onclick="confirmation.show()" type="button" title="Remover" />
+							<p:commandButton icon="ui-icon-pencil" ajax="false" update="dataTableTurno" actionListener="#{turnoMB.editar(turno)}" title="Atualizar" />
+
+						</p:column>
+
+					</p:dataTable>
+		
+			</h:form>
+			
+		</ui:define>
+
+	</ui:composition>
+ ￼ ￼ 	</h:body>
+</html>
